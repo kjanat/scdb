@@ -1,0 +1,16 @@
+# Binaries
+scdb-downloader
+*.exe
+
+# Downloaded files
+*.zip
+
+# Credentials and secrets
+download.ps1
+*.ps1
+
+# Playwright cache
+.playwright-mcp/
+
+# Temporary test files
+test_download_*/
