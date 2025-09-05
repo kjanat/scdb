@@ -44,6 +44,7 @@ export SCDB_PASS=your_password
   -countries "NL,B,D,FR" \
   -display 1 \
   -iconsize 5 \
+  -warningtime 300 \
   -fixed \
   -mobile \
   -verbose
@@ -60,6 +61,7 @@ export SCDB_PASS=your_password
 | `-display` | Display type (see below) | `1` |
 | `-dangerzones` | Include danger zones | `true` |
 | `-iconsize` | Icon size (see below) | `5` |
+| `-warningtime` | Warning time in seconds (0=disabled) | `0` |
 | `-fixed` | Download fixed speed cameras | `true` |
 | `-mobile` | Download mobile speed cameras | `true` |
 | `-verbose` | Enable verbose output | `false` |
@@ -76,6 +78,12 @@ export SCDB_PASS=your_password
 - `3` = 32x32 pixels (8 bit BMP)
 - `4` = 48x48 pixels (8 bit BMP)
 - `5` = 80x80 pixels (8 bit BMP)
+
+### Warning Time
+The `-warningtime` option allows you to set a warning distance/time for speed cameras:
+- `0` = Disabled (default) - No warning time/distance
+- Any positive integer = Warning time in seconds before reaching the camera
+- This value is passed to the SCDB system and may affect the database content
 
 ## Country Codes
 

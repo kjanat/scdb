@@ -26,6 +26,7 @@ mkdir -p "$TEST_DIR"
   -countries "NL" \
   -display 1 \
   -iconsize 5 \
+  -warningtime 0 \
   -fixed \
   -mobile \
   -verbose
