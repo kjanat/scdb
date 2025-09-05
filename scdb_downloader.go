@@ -516,7 +516,7 @@ func main() {
 	if configFile != "" {
 		loadedConfig, err := loadConfigFile(configFile)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error loading config file %s: %v\n", configFile, err)
+			_, _ = fmt.Fprintf(os.Stderr, "Error loading config file %s: %v\n", configFile, err)
 			os.Exit(1)
 		}
 		// Merge loaded config with command line args (command line takes precedence)
@@ -547,9 +547,9 @@ func main() {
 
 		expanded, err := expandCountries(countryList)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error parsing countries: %v\n", err)
-			fmt.Fprintf(os.Stderr, "\nAvailable regions: africa, asia, europe, northamerica, southamerica, oceania\n")
-			fmt.Fprintf(os.Stderr, "                   dach, benelux, westeurope, easteurope, scandinavia\n")
+			_, _ = fmt.Fprintf(os.Stderr, "Error parsing countries: %v\n", err)
+			_, _ = fmt.Fprintf(os.Stderr, "\nAvailable regions: africa, asia, europe, northamerica, southamerica, oceania\n")
+			_, _ = fmt.Fprintf(os.Stderr, "                   dach, benelux, westeurope, easteurope, scandinavia\n")
 			os.Exit(1)
 		}
 		config.Countries = expanded
@@ -563,20 +563,20 @@ func main() {
 
 		// For saving config, only validate non-credential fields
 		if config.DisplayType < 1 || config.DisplayType > 4 {
-			fmt.Fprintf(os.Stderr, "Error: display type must be 1-4 (got %d)\n", config.DisplayType)
+			_, _ = fmt.Fprintf(os.Stderr, "Error: display type must be 1-4 (got %d)\n", config.DisplayType)
 			os.Exit(1)
 		}
 		if config.IconSize < 1 || config.IconSize > 5 {
-			fmt.Fprintf(os.Stderr, "Error: icon size must be 1-5 (got %d)\n", config.IconSize)
+			_, _ = fmt.Fprintf(os.Stderr, "Error: icon size must be 1-5 (got %d)\n", config.IconSize)
 			os.Exit(1)
 		}
 		if config.WarningTime < 0 {
-			fmt.Fprintf(os.Stderr, "Error: warning time cannot be negative (got %d)\n", config.WarningTime)
+			_, _ = fmt.Fprintf(os.Stderr, "Error: warning time cannot be negative (got %d)\n", config.WarningTime)
 			os.Exit(1)
 		}
 
 		if err := saveConfigFile(&config, saveConfigPath); err != nil {
-			fmt.Fprintf(os.Stderr, "Error saving config file: %v\n", err)
+			_, _ = fmt.Fprintf(os.Stderr, "Error saving config file: %v\n", err)
 			os.Exit(1)
 		}
 		fmt.Printf("Configuration saved to: %s\n", saveConfigPath)
@@ -585,14 +585,14 @@ func main() {
 
 	// Validate configuration for running downloads
 	if err := validateConfig(&config); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "Error: %v\n\n", err)
 		flag.Usage()
 		os.Exit(1)
 	}
 
 	// Create output directory if it doesn't exist
 	if err := os.MkdirAll(config.OutputDir, 0755); err != nil {
-		fmt.Fprintf(os.Stderr, "Error creating output directory: %v\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "Error creating output directory: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -618,7 +618,7 @@ func main() {
 	// Create downloader and run
 	downloader := NewDownloader(&config)
 	if err := downloader.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "Download failed: %v\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "Download failed: %v\n", err)
 		os.Exit(1)
 	}
 
