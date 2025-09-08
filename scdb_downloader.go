@@ -67,7 +67,7 @@ func (d *SCDBDownloader) login() error {
 		fmt.Println("Logging in to SCDB...")
 	}
 
-	// First GET the login page to extract the CSRF token
+	// First, GET the login page to extract the CSRF token
 	resp, err := d.client.Get("https://www.scdb.info/en/login/")
 	if err != nil {
 		return fmt.Errorf("failed to get login page: %w", err)
@@ -93,7 +93,7 @@ func (d *SCDBDownloader) login() error {
 		fmt.Printf("Found CSRF token: %s=%s\n", tokenName, tokenValue)
 	}
 
-	// Prepare login form data with dynamic token
+	// Prepare login form data with a dynamic token
 	formData := url.Values{
 		tokenName:      {tokenValue},
 		"u_name":       {d.config.Username},
@@ -152,9 +152,9 @@ func (d *SCDBDownloader) downloadFixed() error {
 
 	// Add France-specific danger zone handling
 	if d.config.FranceDangerMode {
-		formData.Set("france_danger", "1") // Display position as danger zone
+		formData.Set("france_danger", "1") // Display position as a danger zone
 	} else {
-		formData.Set("france_danger", "0") // Display correct position
+		formData.Set("france_danger", "0") // Display the correct position
 	}
 
 	// Add danger zones setting
@@ -236,7 +236,7 @@ func (d *SCDBDownloader) saveResponseToFile(resp *http.Response, filepath string
 	}
 
 	if !strings.Contains(contentType, "zip") && !strings.Contains(contentType, "octet") {
-		// Read response body for error message
+		// Read the response body for an error message
 		body, _ := io.ReadAll(resp.Body)
 		return fmt.Errorf("unexpected response (not a zip file), Content-Type: %s, Body: %s", contentType, string(body))
 	}
@@ -297,7 +297,7 @@ var (
 		"USA", "ROU", "UZ", "VN", "Z", "ZW",
 	}
 
-	// Regional presets based on web interface
+	// Regional presets based on the web interface
 	regionMap = map[string][]string{
 		"africa":       {"AFG", "DZ", "ET", "MA", "NAM", "ZA", "RWA", "TN", "Z", "ZW"},
 		"asia":         {"ARM", "AZ", "BRN", "HK", "IND", "IR", "IRQ", "IL", "J", "JOR", "KZ", "KWT", "KS", "LAO", "MAL", "MO", "MGL", "OM", "PK", "RP", "SGP", "ROK", "RCT", "T", "UAE", "UZ", "VN"},
@@ -311,7 +311,6 @@ var (
 		"easteurope":   {"PL", "CZ", "SK", "H", "RO", "BG", "HR", "SLO", "EST", "LV", "LT", "BY", "UA", "RUS"},
 		"scandinavia":  {"SE", "NO", "DK", "FI", "IS"},
 	}
-
 )
 
 // getAllCountries returns all available country codes
@@ -375,7 +374,7 @@ func loadConfigFile(filename string) (*Config, error) {
 
 // saveConfigFile saves configuration to YAML file
 func saveConfigFile(config *Config, filename string) error {
-	// Create directory if it doesn't exist
+	// Create a directory if it doesn't exist
 	dir := filepath.Dir(filename)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return fmt.Errorf("failed to create config directory: %w", err)
@@ -555,7 +554,7 @@ func main() {
 		config.Countries = expanded
 	}
 
-	// Save config file if requested (do this first to allow saving without credentials)
+	// Save the config file if requested (do this first to allow saving without credentials)
 	if saveConfigPath != "" {
 		if saveConfigPath == "default" {
 			saveConfigPath = getDefaultConfigPath()
@@ -590,7 +589,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Create output directory if it doesn't exist
+	// Create an output directory if it doesn't exist
 	if err := os.MkdirAll(config.OutputDir, 0755); err != nil {
 		_, _ = fmt.Fprintf(os.Stderr, "Error creating output directory: %v\n", err)
 		os.Exit(1)
@@ -615,7 +614,7 @@ func main() {
 		fmt.Println()
 	}
 
-	// Create downloader and run
+	// Create a downloader and run
 	downloader := NewDownloader(&config)
 	if err := downloader.Run(); err != nil {
 		_, _ = fmt.Fprintf(os.Stderr, "Download failed: %v\n", err)
