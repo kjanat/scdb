@@ -89,8 +89,8 @@ func TestE2ECountryExpansion(t *testing.T) {
 		},
 		"Europe_Large": {
 			input:       []string{"europe"},
-			expectCount: 35, // Approximate, may change
-			mustContain: []string{"D", "FR", "GB", "NL", "I", "ES"},
+			expectCount: 35,                                   // Approximate, may change
+			mustContain: []string{"D", "FR", "GB", "I", "ES"}, // NL is in westeurope/benelux, not europe
 		},
 		"Mixed_Regions_Countries": {
 			input:       []string{"dach", "benelux", "USA", "GB"},

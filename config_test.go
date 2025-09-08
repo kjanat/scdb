@@ -269,7 +269,7 @@ func TestGetDefaultConfigPath(t *testing.T) {
 	// Test fallback when HOME is not set
 	t.Run("Fallback when HOME not set", func(t *testing.T) {
 		_ = os.Unsetenv("HOME")
-	_ = os.Unsetenv("XDG_CONFIG_HOME")
+		_ = os.Unsetenv("XDG_CONFIG_HOME")
 
 		path := getDefaultConfigPath()
 		expected := "./scdb-config.yml"

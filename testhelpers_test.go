@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 // MockSCDBServer creates a mock server that simulates SCDB responses
@@ -39,6 +40,12 @@ func NewMockSCDBServer() *MockSCDBServer {
 	mux.HandleFunc("/intern/download/garmin-mobile.zip", mock.handleMobileDownload)
 
 	mock.server = httptest.NewServer(mux)
+
+	// Add timeout controls to prevent test hangs
+	mock.server.Config.ReadTimeout = 10 * time.Second
+	mock.server.Config.WriteTimeout = 10 * time.Second
+	mock.server.Config.IdleTimeout = 10 * time.Second
+
 	return mock
 }
 
