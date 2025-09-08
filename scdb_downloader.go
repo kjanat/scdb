@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v2"
 )
 
 // Config holds the downloader configuration
@@ -95,10 +95,10 @@ func (d *SCDBDownloader) login() error {
 
 	// Prepare login form data with a dynamic token
 	formData := url.Values{
-		tokenName:      {tokenValue},
-		"u_name":       {d.config.Username},
-		"u_password":   {d.config.Password},
-		"login_submit": {"Login"},
+		tokenName:      []string{tokenValue},
+		"u_name":       []string{d.config.Username},
+		"u_password":   []string{d.config.Password},
+		"login_submit": []string{"Login"},
 	}
 
 	req, err := http.NewRequest("POST", "https://www.scdb.info/en/login/",

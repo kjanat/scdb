@@ -10,7 +10,7 @@ BUILD_DIR=./bin
 COVERAGE_DIR=./coverage
 
 # Go configuration
-GO_VERSION=1.19
+GO_VERSION=1.24.6
 GOFLAGS=-v
 LDFLAGS=-w -s
 

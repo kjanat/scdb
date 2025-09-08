@@ -1,5 +1,6 @@
 # Binaries
-scdb-downloader
+/scdb-downloader
+/scdb
 *.exe
 
 # Downloaded files
